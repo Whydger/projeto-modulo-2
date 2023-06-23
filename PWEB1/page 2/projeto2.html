@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Informações de Usuários Aleatórios</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="estilo2.css">
+  <script>
+    function carregarUsuariosAleatorios() {
+      $.ajax({
+        url: 'https://randomuser.me/api/?results=5',
+        dataType: 'json',
+        success: function(data) {
+          var usuarios = data.results;
+
+          // Limpar as informações anteriores
+          $('#usuarios').empty();
+
+          for (var i = 0; i < usuarios.length; i++) {
+            var usuario = usuarios[i];
+            var nome = usuario.name.first + ' ' + usuario.name.last;
+            var genero = usuario.gender;
+            var email = usuario.email;
+            var idade = usuario.dob.age;
+            var telefone = usuario.phone;
+            var nacionalidade = usuario.nat;
+
+            var divUsuario = $('<div>').addClass('usuario');
+            var img = $('<img>').attr('src', usuario.picture.large).attr('alt', 'Foto do usuário');
+            var pNome = $('<p>').html('<strong>Nome:</strong> ' + nome);
+            var pGenero = $('<p>').html('<strong>Gênero:</strong> ' + genero);
+            var pEmail = $('<p>').html('<strong>Email:</strong> ' + email);
+            var pIdade = $('<p>').html('<strong>Idade:</strong> ' + idade);
+            var pTelefone = $('<p>').html('<strong>Telefone:</strong> ' + telefone);
+            var pNacionalidade = $('<p>').html('<strong>Nacionalidade:</strong> ' + nacionalidade);
+
+            divUsuario.append(img, pNome, pGenero, pEmail, pIdade, pTelefone, pNacionalidade);
+            $('#usuarios').append(divUsuario);
+          }
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>Informações de Usuários Aleatórios</h1>
+  <button onclick="carregarUsuariosAleatorios()">Carregar Usuários</button>
+  <div id="usuarios"></div>
+</body>
+</html>

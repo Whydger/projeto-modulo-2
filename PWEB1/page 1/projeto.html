@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Projeto Modulo 2</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="estilo.css">
+  <script>
+    function carregarUsuarioAleatorio() {
+      $.ajax({
+        url: 'https://randomuser.me/api/',
+        dataType: 'json',
+        success: function(data) {
+          var usuario = data.results[0];
+          var nome = usuario.name.first + ' ' + usuario.name.last;
+          var email = usuario.email;
+          var foto = usuario.picture.large;
+
+          $('#nome').text(nome);
+          $('#email').text(email);
+          $('#foto').attr('src', foto);
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+  <h1>Informações de Usuário Aleatório</h1>
+  <button onclick="carregarUsuarioAleatorio()">Carregar Usuário</button>
+  <div>
+    <img id="foto" src="" alt="Foto do usuário">
+    <p><strong>Nome:</strong> <span id="nome"></span></p>
+    <p><strong>Email:</strong> <span id="email"></span></p>
+  </div>
+</body>
+</html>
